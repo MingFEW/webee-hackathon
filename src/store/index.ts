@@ -11,16 +11,24 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
+import createSagaMiddleware from 'redux-saga'
+import { machineTypesSlice } from './machine-types'
+import rootSaga from './sagas'
+import { RootState } from './types'
 
-const reducers = combineReducers({})
+const reducers = combineReducers<RootState>({
+  machineTypes: machineTypesSlice.reducer,
+})
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['theme'],
+  whitelist: ['machineTypes'],
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)
+
+const sagaMiddleware = createSagaMiddleware()
 
 const store = configureStore({
   reducer: persistedReducer,
@@ -36,12 +44,14 @@ const store = configureStore({
       middlewares.push(createDebugger())
     }
 
-    return middlewares
+    return [...middlewares, sagaMiddleware]
   },
 })
 
 const persistor = persistStore(store)
 
 setupListeners(store.dispatch)
+
+sagaMiddleware.run(rootSaga)
 
 export { store, persistor }

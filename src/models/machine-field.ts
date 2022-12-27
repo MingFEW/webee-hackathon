@@ -1,14 +1,14 @@
-export type FieldKey = 'date' | 'text' | 'checkbox' | 'number'
-
-type FieldValue<K extends FieldKey> = {
+type FieldDataTypes = {
   date: Date
   text: string
   checkbox: boolean
   number: number
-}[K]
+}
 
-type Field<K extends FieldKey> = {
-  key: string
+type FieldType = keyof FieldDataTypes
+
+type Field<K extends FieldType> = {
+  id: string
   type: K
   label: string
 }
@@ -24,7 +24,6 @@ export type MachineField =
   | MachineCheckboxField
   | MachineNumberField
 
-export type MachineFieldValue<F extends MachineField> = {
-  key: F['key']
-  value: FieldValue<F['type']>
+export type MachineFieldValue<F extends MachineField> = F & {
+  value: FieldDataTypes[F['type']]
 }
