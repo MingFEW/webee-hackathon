@@ -1,6 +1,7 @@
 import { MachineField } from '@/models/machine-field'
 import { MachineType } from '@/models/machine-type'
 import { generateUuid } from '@/utils/randomizer'
+import moment from 'moment'
 
 export const generateEmptyMachineField = (): MachineField => ({
   id: generateUuid(),
@@ -14,7 +15,7 @@ export const generateEmptyMachineType = (): MachineType => {
   return {
     id: generateUuid(),
     name: '',
-    createdAt: new Date(),
+    createdAt: moment().unix(),
     labeledAs: emptyField.id,
     fields: [emptyField],
   }

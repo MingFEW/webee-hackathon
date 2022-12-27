@@ -1,5 +1,5 @@
 type FieldDataTypes = {
-  date: Date
+  date: number
   text: string
   checkbox: boolean
   number: number
