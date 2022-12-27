@@ -58,6 +58,12 @@ export default function ({}: ThemeVariables) {
     alignItemsStretch: {
       alignItems: 'stretch',
     },
+    justifyContentStart: {
+      justifyContent: 'flex-start',
+    },
+    justifyContentEnd: {
+      justifyContent: 'flex-end',
+    },
     justifyContentCenter: {
       justifyContent: 'center',
     },

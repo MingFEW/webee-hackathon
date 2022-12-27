@@ -6,6 +6,24 @@ import { ThemeVariables } from './theme'
 
 export default function ({ FontSize, Colors }: ThemeVariables) {
   return StyleSheet.create({
+    appTitle: {
+      color: Colors.text,
+      fontSize: FontSize.big,
+      fontWeight: '600',
+    },
+    cardTitle: {
+      color: Colors.text,
+      fontSize: FontSize.regular,
+      fontWeight: '700',
+      lineHeight: 19,
+    },
+    smallPrimaryText: {
+      color: Colors.primary,
+      fontSize: FontSize.small,
+      fontWeight: '500',
+      lineHeight: 14,
+    },
+
     textCenter: {
       textAlign: 'center',
     },
@@ -30,9 +48,9 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       color: Colors.text,
       fontSize: FontSize.small,
     },
-    titleLarge: {
+    titleBig: {
       color: Colors.text,
-      fontSize: FontSize.large * 2,
+      fontSize: FontSize.big,
       fontWeight: 'bold',
     },
     titleRegular: {
