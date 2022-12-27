@@ -1,13 +1,13 @@
-type FieldDataTypes = {
+export type FieldDataTypes = {
   date: number
   text: string
   checkbox: boolean
   number: number
 }
 
-type FieldType = keyof FieldDataTypes
+export type MachineFieldType = keyof FieldDataTypes
 
-type Field<K extends FieldType> = {
+type Field<K extends MachineFieldType> = {
   id: string
   type: K
   label: string
@@ -24,6 +24,7 @@ export type MachineField =
   | MachineCheckboxField
   | MachineNumberField
 
-export type MachineFieldValue<F extends MachineField> = F & {
+export type MachineFieldValue<F extends MachineField> = {
+  fieldId: F['id']
   value: FieldDataTypes[F['type']]
 }

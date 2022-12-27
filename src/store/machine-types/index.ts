@@ -4,6 +4,7 @@ import {
   MachineTypeFieldAddedPayload,
   MachineTypeFieldRemovedPayload,
   MachineTypeFieldUpdatedPayload,
+  MachineTypeLabeledAsUpdatedPayload,
   MachineTypeNameUpdatedPayload,
   MachineTypesState,
 } from './types'
@@ -29,6 +30,16 @@ export const machineTypesSlice = createSlice({
         machine.name = newName
       }
     },
+    machineTypeLabeledAsUpdated(state, action: PayloadAction<MachineTypeLabeledAsUpdatedPayload>) {
+      const { typeId, labeledAs } = action.payload
+
+      const machine = state.machineTypes.find((t) => t.id === typeId)
+      const labelExisted = machine?.fields.map((f) => f.id).includes(labeledAs)
+
+      if (machine && labelExisted) {
+        machine.labeledAs = labeledAs
+      }
+    },
     machineTypeRemoved(state, action: PayloadAction<string>) {
       state.machineTypes = state.machineTypes.filter((t) => t.id !== action.payload)
     },
@@ -36,9 +47,9 @@ export const machineTypesSlice = createSlice({
       const { typeId } = action.payload
 
       const machineType = state.machineTypes.find((t) => t.id === typeId)
-      const newField = generateEmptyMachineField()
 
       if (machineType) {
+        const newField = generateEmptyMachineField()
         machineType.fields.push(newField)
       }
     },
