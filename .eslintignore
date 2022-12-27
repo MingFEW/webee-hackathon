@@ -1,0 +1,8 @@
+node_modules
+.vscode
+android
+ios
+.husky
+.bundle
+vendor
+.prettierrc.js
