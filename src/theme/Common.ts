@@ -7,9 +7,9 @@ import { StyleSheet } from 'react-native'
 import buttonStyles from './components/Buttons'
 import { CommonParams } from './theme'
 
-export default function <C>({ Colors, ...args }: CommonParams<C>) {
+export default function <C>({ Colors, MetricsSizes, ...args }: CommonParams<C>) {
   return {
-    button: buttonStyles({ Colors, ...args }),
+    button: buttonStyles({ Colors, MetricsSizes, ...args }),
     ...StyleSheet.create({
       backgroundPrimary: {
         backgroundColor: Colors.primary,
@@ -17,15 +17,21 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       backgroundReset: {
         backgroundColor: Colors.transparent,
       },
-      textInput: {
-        backgroundColor: Colors.error,
-        borderColor: Colors.text,
+      card: {
+        backgroundColor: Colors.white,
+        borderRadius: 0,
+        padding: 10,
+      },
+      inputField: {
+        backgroundColor: Colors.white,
+        borderColor: Colors.primary,
+        borderRadius: 4,
         borderWidth: 1,
-        color: Colors.text,
-        marginBottom: 10,
-        marginTop: 10,
-        minHeight: 50,
-        textAlign: 'center',
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+      },
+      textInput: {
+        backgroundColor: Colors.white,
       },
     }),
   }

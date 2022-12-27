@@ -18,4 +18,9 @@ plugins.push(
 module.exports = {
   presets,
   plugins,
+  env: {
+    production: {
+      plugins: ['react-native-paper/babel'],
+    },
+  },
 }
