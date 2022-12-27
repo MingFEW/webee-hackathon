@@ -3,18 +3,20 @@ import { SafeAreaView } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
 import { useTheme } from '@/hooks'
-// import MainNavigator from './Main'
 import { navigationRef } from './utils'
 
 // Screens
 import { ManageTypesScreen } from '@/screens/manage-types/manage-types-screen'
 import { DashboardScreen } from '@/screens/dashboard/dashboard-screen'
+import { MachineTypeScreen } from '@/screens/machine-type/machine-type-screen'
 import { DrawerContent } from '@/components/drawer-content'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { MachinesScreen } from '@/screens/machines/machines-screen'
 
-const Stack = createStackNavigator()
+import { NavigatorParamList } from './types'
+
+const Stack = createStackNavigator<NavigatorParamList>()
 const Drawer = createDrawerNavigator()
 
 // @refresh reset
@@ -33,7 +35,7 @@ const ApplicationNavigator = () => {
           >
             <Stack.Screen name="ManageTypes" component={ManageTypesScreen} />
             <Stack.Screen name="Dashboard" component={DashboardScreen} />
-            <Stack.Screen name="MachinesByTypes" component={MachinesScreen} />
+            <Stack.Screen name="MachineType" component={MachineTypeScreen} />
           </Drawer.Navigator>
         </NavigationContainer>
       </SafeAreaView>

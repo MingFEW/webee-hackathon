@@ -5,7 +5,7 @@ type FieldDataTypes = {
   number: number
 }
 
-type FieldType = keyof FieldDataTypes
+export type FieldType = keyof FieldDataTypes
 
 type Field<K extends FieldType> = {
   id: string

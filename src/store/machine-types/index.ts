@@ -1,4 +1,4 @@
-import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { generateEmptyMachineField, generateEmptyMachineType } from './helpers'
 import {
   MachineTypeFieldAddedPayload,
@@ -16,7 +16,7 @@ export const machineTypesSlice = createSlice({
   name: 'machineTypes',
   initialState,
   reducers: {
-    machineTypeAdded(state, action: Action) {
+    machineTypeAdded(state) {
       const newType = generateEmptyMachineType()
       state.machineTypes.push(newType)
     },
@@ -33,10 +33,10 @@ export const machineTypesSlice = createSlice({
       state.machineTypes = state.machineTypes.filter((t) => t.id !== action.payload)
     },
     machineTypeFieldAdded(state, action: PayloadAction<MachineTypeFieldAddedPayload>) {
-      const { typeId } = action.payload
+      const { typeId, fieldType } = action.payload
 
       const machineType = state.machineTypes.find((t) => t.id === typeId)
-      const newField = generateEmptyMachineField()
+      const newField = generateEmptyMachineField(fieldType)
 
       if (machineType) {
         machineType.fields.push(newField)
