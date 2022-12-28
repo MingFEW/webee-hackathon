@@ -23,14 +23,14 @@ interface Props {
 const MachineCard: React.FC<Props> = memo((props) => {
   const dispatch = useDispatch()
   const { Common, Fonts, Gutters, Layout, Colors } = useTheme()
-  const { machine, machineType, machineIndex } = props
+  const { machine, machineType } = props
   const { id: machineId, data } = machine
 
   const cardLabel: string = useMemo(() => {
     const getFieldValue = machine.data.find((m) => m.fieldId === machineType.labeledAs)
       ?.value as string
-    return getFieldValue || `${machineType.name} #${machineIndex + 1}`
-  }, [machine, machineType, machineIndex])
+    return getFieldValue || `Unnamed machine`
+  }, [machine, machineType])
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
 

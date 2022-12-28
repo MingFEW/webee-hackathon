@@ -23,7 +23,7 @@ interface FormCardProps {
 export const FormCard: React.FC<FormCardProps> = memo((props) => {
   const dispatch = useDispatch()
   const { Common, Fonts, Gutters, Layout, Colors } = useTheme()
-  const { data, onRemove, machineTypeIndex } = props
+  const { data, onRemove } = props
   const { id: machineTypeId, name, labeledAs, fields } = data
 
   const [isOpenAddFieldBottomSheet, setIsOpenAddFieldBottomSheet] = useState<boolean>(false)
@@ -92,7 +92,7 @@ export const FormCard: React.FC<FormCardProps> = memo((props) => {
 
   return (
     <Card style={[Common.card, Gutters.regularHMargin, Gutters.regularVMargin]}>
-      <Text style={Fonts.cardTitle}>{name || `Machine type #${machineTypeIndex + 1}`}</Text>
+      <Text style={Fonts.cardTitle}>{name || `Unnamed machine type`}</Text>
       <View style={Gutters.regularTMargin}>
         <TextInput
           style={[Common.textInput, Gutters.tinyVMargin]}

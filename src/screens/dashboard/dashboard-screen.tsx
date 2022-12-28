@@ -28,7 +28,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = () => {
     <Screen headerTitle="Dashboard">
       {machineTypes?.length ? (
         <ScrollView showsVerticalScrollIndicator={false}>
-          {machineTypes.map((machineType: MachineType, index: number) => {
+          {machineTypes.map((machineType: MachineType) => {
             const allMachinesByTypeId = allMachines.filter(
               (m: Machine) => m.categoryId === machineType.id,
             )
@@ -43,7 +43,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = () => {
                     ]}
                   >
                     <Text style={[Fonts.textBig, Fonts.textMedium]}>
-                      {machineType.name || `Machine Type #${index + 1}`}
+                      {machineType.name || `Unnamed machine`}
                     </Text>
                     <Pressable
                       style={Common.button.rounded}

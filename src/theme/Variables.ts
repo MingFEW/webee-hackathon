@@ -14,6 +14,7 @@ export const Colors = {
   white: '#ffffff',
   text: '#212529',
   gray: '#848484',
+  lightGray: '#f7f7f7',
   primary: '#896800',
   primary50: 'rgba(137, 104, 0, 0.5)',
   success: '#28a745',
@@ -22,8 +23,8 @@ export const Colors = {
 
 export const NavigationColors = {
   primary: Colors.primary, // The primary color of the app used to tint various elements. Usually you'll want to use your brand color for this.
-  // background: '', The color of various backgrounds, such as background color for the screens
-  // card: '', The background color of card-like elements, such as headers, tab bars etc.
+  background: Colors.lightGray, // The color of various backgrounds, such as background color for the screens
+  card: Colors.white, //The background color of card-like elements, such as headers, tab bars etc.
   // text: '', The text color of various elements
   // border: '', The color of borders, e.g. header border, tab bar border etc
   // notification: '', The color of Tab Navigator badge

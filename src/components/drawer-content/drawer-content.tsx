@@ -57,7 +57,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = memo((props) => {
                       setSubItemIndex(index)
                     }}
                   >
-                    <Text style={Fonts.textBoldRegular}>{item.name}</Text>
+                    <Text style={Fonts.textBoldRegular}>{item.name || `Unnamed machine type`}</Text>
                   </Pressable>
                 ))}
               </View>

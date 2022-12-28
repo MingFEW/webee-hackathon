@@ -1,12 +1,5 @@
-const Colors = {
-  primary: 'green',
-  text: 'white',
-  inputBackground: 'gray',
-}
-
-const NavigationColors = {
-  primary: Colors.primary,
-}
+const Colors = {}
+const NavigationColors = {}
 
 export default {
   Colors,

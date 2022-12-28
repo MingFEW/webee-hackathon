@@ -29,10 +29,12 @@ export const MachineTypeScreen: React.FC<MachineTypeScreenProps> = (props) => {
   const allMachines = useSelector(selectAllMachines)
 
   return (
-    <Screen headerTitle={machineType?.name}>
+    <Screen headerTitle={machineType?.name || `Unnamed machine type`}>
       <View style={[Gutters.regularHMargin, Gutters.regularVMargin]}>
         <View style={[Layout.rowHCenter, Layout.justifyContentBetween, Gutters.regularBPadding]}>
-          <Text style={[Fonts.textBig, Fonts.textMedium]}>{machineType?.name}</Text>
+          <Text style={[Fonts.textBig, Fonts.textMedium]}>
+            {machineType?.name || 'Unnamed machine type'}
+          </Text>
           <Pressable
             style={Common.button.rounded}
             onPress={() => dispatch(machinesActions.machineAdded({ type: machineType }))}
