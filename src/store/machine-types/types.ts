@@ -16,7 +16,7 @@ export type MachineTypeNameUpdatedPayload = {
 
 export type MachineTypeLabeledAsUpdatedPayload = {
   typeId: string
-  labeledAs: string
+  labeledAs?: string
 }
 
 export type MachineTypeFieldAddedPayload = {

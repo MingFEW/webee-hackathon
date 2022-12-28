@@ -12,16 +12,18 @@ import { MachineType } from '@/models/machine-type'
 import { FieldTypesBottomSheet } from './field-types-bottom-sheet'
 import { SetTitleBottomSheet } from './set-title-bottom-sheet'
 import { machinesActions } from '@/store/machines/actions'
+import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter'
 
 interface FormCardProps {
   data: MachineType
+  machineTypeIndex: number
   onRemove: () => void
 }
 
 export const FormCard: React.FC<FormCardProps> = memo((props) => {
   const dispatch = useDispatch()
   const { Common, Fonts, Gutters, Layout, Colors } = useTheme()
-  const { data, onRemove } = props
+  const { data, onRemove, machineTypeIndex } = props
   const { id: machineTypeId, name, labeledAs, fields } = data
 
   const [isOpenAddFieldBottomSheet, setIsOpenAddFieldBottomSheet] = useState<boolean>(false)
@@ -47,8 +49,16 @@ export const FormCard: React.FC<FormCardProps> = memo((props) => {
             activeOutlineColor={Colors.primary}
             label="Field"
             value={label}
-            placeholder="Enter field name"
-            onChangeText={(text: string) =>
+            onChangeText={(text: string) => {
+              // set the first input text as default field title
+              if (type === 'text' && !labeledAs) {
+                dispatch(
+                  machineTypesActions.machineTypeLabeledAsUpdated({
+                    typeId: machineTypeId,
+                    labeledAs: text ? fieldId : undefined,
+                  }),
+                )
+              }
               dispatch(
                 machineTypesActions.machineTypeFieldUpdated({
                   typeId: machineTypeId,
@@ -58,29 +68,31 @@ export const FormCard: React.FC<FormCardProps> = memo((props) => {
                   },
                 }),
               )
-            }
+            }}
           />
         </View>
-        <Pressable
-          onPress={() => {
-            dispatch(
-              machineTypesActions.machineTypeFieldRemoved({ typeId: machineTypeId, fieldId }),
-            )
-            dispatch(machinesActions.allMachinesSpecificFieldRemoved({ fieldId }))
-          }}
-        >
-          <View style={Layout.rowCenter}>
-            <Text style={[Gutters.tinyRMargin, Fonts.smallPrimaryText]}>{type}</Text>
+        <View style={Layout.rowCenter}>
+          <Text style={[Gutters.tinyRMargin, Fonts.smallPrimaryText]}>
+            {capitalizeFirstLetter(type)}
+          </Text>
+          <Pressable
+            onPress={() => {
+              dispatch(
+                machineTypesActions.machineTypeFieldRemoved({ typeId: machineTypeId, fieldId }),
+              )
+              dispatch(machinesActions.allMachinesSpecificFieldRemoved({ fieldId }))
+            }}
+          >
             <IconButton icon="trash-can-outline" size={24} />
-          </View>
-        </Pressable>
+          </Pressable>
+        </View>
       </View>
     )
   }
 
   return (
     <Card style={[Common.card, Gutters.regularHMargin, Gutters.regularVMargin]}>
-      <Text style={Fonts.cardTitle}>{name || 'Marchine type'}</Text>
+      <Text style={Fonts.cardTitle}>{name || `Machine type #${machineTypeIndex + 1}`}</Text>
       <View style={Gutters.regularTMargin}>
         <TextInput
           style={[Common.textInput, Gutters.tinyVMargin]}
@@ -95,7 +107,10 @@ export const FormCard: React.FC<FormCardProps> = memo((props) => {
             )
           }
         />
+        {/* Input fields */}
         {fields.map((field: MachineField) => renderInputField(field))}
+
+        {/* Set title */}
         <Pressable
           style={[Common.button.rounded, Gutters.largeTMargin]}
           onPress={toggleSetTitleBottomSheet}
@@ -104,6 +119,8 @@ export const FormCard: React.FC<FormCardProps> = memo((props) => {
             labeledAs ? fields.find((f) => f.id === labeledAs)?.label : '{field_label}'
           }`}</Text>
         </Pressable>
+
+        {/* Card bottom */}
         <View style={[Layout.rowHCenter, Layout.justifyContentBetween, Gutters.largeTMargin]}>
           <View>
             <Pressable style={Common.button.rounded} onPress={toggleAddFieldBottomSheet}>

@@ -34,10 +34,10 @@ export const machineTypesSlice = createSlice({
       const { typeId, labeledAs } = action.payload
 
       const machine = state.machineTypes.find((t) => t.id === typeId)
-      const labelExisted = machine?.fields.map((f) => f.id).includes(labeledAs)
+      // const labelExisted = machine?.fields.map((f) => f.id).includes(labeledAs)
 
-      if (machine && labelExisted) {
-        machine.labeledAs = labeledAs
+      if (machine) {
+        machine.labeledAs = labeledAs as string
       }
     },
     machineTypeRemoved(state, action: PayloadAction<string>) {
@@ -70,6 +70,10 @@ export const machineTypesSlice = createSlice({
 
       if (machineType) {
         machineType.fields = machineType.fields.filter((f) => f.id !== fieldId)
+      }
+
+      if (fieldId === machineType?.labeledAs) {
+        machineType.labeledAs = ''
       }
     },
   },

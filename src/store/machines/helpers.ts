@@ -35,7 +35,7 @@ export const generateEmptyMachine = (type: MachineType): Machine => ({
   createdAt: moment().unix(),
   data: type.fields.map((f) => ({
     fieldId: f.id,
-    value: getDefaultFieldValue(f.type.toLowerCase() as MachineFieldType),
+    value: getDefaultFieldValue(f.type),
   })),
 })
 
@@ -43,7 +43,7 @@ export const parseMachineField = (
   fieldSchema: MachineField,
   field: Machine['data'][number],
 ): Machine['data'][number] => {
-  if (isMatchingFieldType(field, fieldSchema.type.toLowerCase() as MachineFieldType)) {
+  if (isMatchingFieldType(field, fieldSchema.type)) {
     return field
   }
 

@@ -23,6 +23,13 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       fontWeight: '500',
       lineHeight: 14,
     },
+    textBig: {
+      color: Colors.text,
+      fontSize: FontSize.big,
+    },
+    textBold: {
+      fontWeight: '700',
+    },
     textBoldRegular: {
       color: Colors.text,
       fontSize: FontSize.regular,
@@ -41,6 +48,9 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     textLeft: {
       textAlign: 'left',
     },
+    textMedium: {
+      fontWeight: '600',
+    },
     textRegular: {
       color: Colors.text,
       fontSize: FontSize.regular,
@@ -51,21 +61,6 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     textSmall: {
       color: Colors.text,
       fontSize: FontSize.small,
-    },
-    titleBig: {
-      color: Colors.text,
-      fontSize: FontSize.big,
-      fontWeight: 'bold',
-    },
-    titleRegular: {
-      color: Colors.text,
-      fontSize: FontSize.regular * 2,
-      fontWeight: 'bold',
-    },
-    titleSmall: {
-      color: Colors.text,
-      fontSize: FontSize.small * 2,
-      fontWeight: 'bold',
     },
   })
 }
