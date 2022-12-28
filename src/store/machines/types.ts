@@ -22,6 +22,11 @@ export type AllMachineSpecificFieldRemovedPayload = {
   fieldId: string
 }
 
+export type MachineFieldAddedPayload = {
+  machineId: string
+  field: Machine['data'][number]
+}
+
 export type MachineFieldUpdatedPayload = {
   machineId: string
   fieldType: MachineField

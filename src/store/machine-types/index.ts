@@ -34,7 +34,6 @@ export const machineTypesSlice = createSlice({
       const { typeId, labeledAs } = action.payload
 
       const machine = state.machineTypes.find((t) => t.id === typeId)
-      // const labelExisted = machine?.fields.map((f) => f.id).includes(labeledAs)
 
       if (machine) {
         machine.labeledAs = labeledAs as string
