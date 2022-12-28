@@ -26,6 +26,15 @@ module.exports = {
         '@typescript-eslint/no-object-literal-type-assertion': 0,
         '@typescript-eslint/no-var-requires': 0,
         '@typescript-eslint/no-empty-function': 0,
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          {
+            vars: 'all',
+            args: 'after-used',
+            argsIgnorePattern: '(^_|^action$)',
+            ignoreRestSiblings: false,
+          },
+        ],
         'comma-dangle': 0,
         'multiline-ternary': 0,
         'no-undef': 0,

@@ -23,7 +23,11 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       fontWeight: '500',
       lineHeight: 14,
     },
-
+    textBoldRegular: {
+      color: Colors.text,
+      fontSize: FontSize.regular,
+      fontWeight: 'bold',
+    },
     textCenter: {
       textAlign: 'center',
     },
