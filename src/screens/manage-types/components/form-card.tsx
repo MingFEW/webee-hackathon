@@ -1,27 +1,39 @@
-import React, { memo } from 'react'
-import { Button, Card, IconButton, Text, TextInput } from 'react-native-paper'
+import React, { memo, useCallback, useState } from 'react'
+import { Card, IconButton, Text, TextInput } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Pressable, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import { machineTypesActions } from '@/store/machine-types/actions'
-
 import { useTheme } from '@/hooks'
+import { machineTypesActions } from '@/store/machine-types/actions'
 import { MachineField } from '@/models/machine-field'
 import { MachineType } from '@/models/machine-type'
 
-interface Props {
+import { FieldTypesBottomSheet } from './field-types-bottom-sheet'
+import { SetTitleBottomSheet } from './set-title-bottom-sheet'
+import { machinesActions } from '@/store/machines/actions'
+
+interface FormCardProps {
   data: MachineType
-  onSetTitle: () => void
-  onAddField: () => void
   onRemove: () => void
 }
 
-export const CardItem: React.FC<Props> = memo((props) => {
+export const FormCard: React.FC<FormCardProps> = memo((props) => {
   const dispatch = useDispatch()
   const { Common, Fonts, Gutters, Layout, Colors } = useTheme()
-  const { data, onSetTitle, onAddField, onRemove } = props
+  const { data, onRemove } = props
   const { id: machineTypeId, name, labeledAs, fields } = data
+
+  const [isOpenAddFieldBottomSheet, setIsOpenAddFieldBottomSheet] = useState<boolean>(false)
+  const [isOpenSetTitleBottomSheet, setIsOpenSetTitleBottomSheet] = useState<boolean>(false)
+
+  const toggleAddFieldBottomSheet = useCallback((): void => {
+    setIsOpenAddFieldBottomSheet((prev) => !prev)
+  }, [])
+
+  const toggleSetTitleBottomSheet = useCallback((): void => {
+    setIsOpenSetTitleBottomSheet((prev) => !prev)
+  }, [])
 
   const renderInputField = (field: MachineField): JSX.Element => {
     const { id: fieldId, type, label } = field
@@ -50,11 +62,12 @@ export const CardItem: React.FC<Props> = memo((props) => {
           />
         </View>
         <Pressable
-          onPress={() =>
+          onPress={() => {
             dispatch(
               machineTypesActions.machineTypeFieldRemoved({ typeId: machineTypeId, fieldId }),
             )
-          }
+            dispatch(machinesActions.allMachinesSpecificFieldRemoved({ fieldId }))
+          }}
         >
           <View style={Layout.rowCenter}>
             <Text style={[Gutters.tinyRMargin, Fonts.smallPrimaryText]}>{type}</Text>
@@ -76,7 +89,6 @@ export const CardItem: React.FC<Props> = memo((props) => {
           mode="outlined"
           label="Type name"
           value={name}
-          placeholder="Enter type name"
           onChangeText={(text: string) =>
             dispatch(
               machineTypesActions.machineTypeNameUpdated({ typeId: machineTypeId, newName: text }),
@@ -84,84 +96,55 @@ export const CardItem: React.FC<Props> = memo((props) => {
           }
         />
         {fields.map((field: MachineField) => renderInputField(field))}
-        <Button
-          style={[Common.button.base, Gutters.largeTMargin]}
-          labelStyle={Common.button.baseText}
-          mode="text"
+        <Pressable
+          style={[Common.button.rounded, Gutters.largeTMargin]}
+          onPress={toggleSetTitleBottomSheet}
         >
-          {`SET TITLE: ${labeledAs}`}
-        </Button>
+          <Text style={Common.button.baseText}>{`SET TITLE: ${
+            labeledAs ? fields.find((f) => f.id === labeledAs)?.label : '{field_label}'
+          }`}</Text>
+        </Pressable>
         <View style={[Layout.rowHCenter, Layout.justifyContentBetween, Gutters.largeTMargin]}>
           <View>
-            <Button
-              style={Common.button.outline}
-              labelStyle={Common.button.baseText}
-              mode="outlined"
-              onPress={() =>
-                dispatch(
-                  machineTypesActions.machineTypeFieldAdded({
-                    typeId: machineTypeId,
-                    fieldType: 'text',
-                  }),
-                )
-              }
-            >
-              + ADD FIELD
-            </Button>
-            <Button
-              style={Common.button.outline}
-              labelStyle={Common.button.baseText}
-              mode="outlined"
-              onPress={() =>
-                dispatch(
-                  machineTypesActions.machineTypeFieldAdded({
-                    typeId: machineTypeId,
-                    fieldType: 'date',
-                  }),
-                )
-              }
-            >
-              + ADD FIELD date
-            </Button>
-            <Button
-              style={Common.button.outline}
-              labelStyle={Common.button.baseText}
-              mode="outlined"
-              onPress={() =>
-                dispatch(
-                  machineTypesActions.machineTypeFieldAdded({
-                    typeId: machineTypeId,
-                    fieldType: 'number',
-                  }),
-                )
-              }
-            >
-              + ADD FIELD number
-            </Button>
-            <Button
-              style={Common.button.outline}
-              labelStyle={Common.button.baseText}
-              mode="outlined"
-              onPress={() =>
-                dispatch(
-                  machineTypesActions.machineTypeFieldAdded({
-                    typeId: machineTypeId,
-                    fieldType: 'checkbox',
-                  }),
-                )
-              }
-            >
-              + ADD FIELD checkbox
-            </Button>
+            <Pressable style={Common.button.rounded} onPress={toggleAddFieldBottomSheet}>
+              <Text style={Common.button.baseText}>+ ADD FIELD</Text>
+            </Pressable>
           </View>
-          <Button onPress={onRemove}>
+          <Pressable onPress={onRemove}>
             <View style={[Layout.rowHCenter]}>
               <Icon name="trash-can-outline" size={24} style={Gutters.smallRMargin} />
               <Text>REMOVE</Text>
             </View>
-          </Button>
+          </Pressable>
         </View>
       </View>
+
+      {/* Bottom sheets */}
+      <FieldTypesBottomSheet
+        isVisbile={isOpenAddFieldBottomSheet}
+        onDismiss={toggleAddFieldBottomSheet}
+        onFieldSelect={(field) => {
+          dispatch(
+            machineTypesActions.machineTypeFieldAdded({
+              typeId: machineTypeId,
+              fieldType: field,
+            }),
+          )
+        }}
+      />
+      <SetTitleBottomSheet
+        isVisbile={isOpenSetTitleBottomSheet}
+        onDismiss={toggleSetTitleBottomSheet}
+        fields={fields}
+        onFieldSelect={(fieldId: string) => {
+          dispatch(
+            machineTypesActions.machineTypeLabeledAsUpdated({
+              typeId: machineTypeId,
+              labeledAs: fieldId,
+            }),
+          )
+        }}
+      />
     </Card>
   )
 })

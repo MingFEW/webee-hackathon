@@ -14,6 +14,7 @@ export const Colors = {
   white: '#ffffff',
   text: '#212529',
   primary: '#896800',
+  primary50: 'rgba(137, 104, 0, 0.5)',
   success: '#28a745',
   error: '#dc3545',
 }

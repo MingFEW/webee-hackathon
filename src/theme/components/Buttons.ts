@@ -6,6 +6,7 @@ export default function <C>({ Colors, FontSize, Layout }: CommonParams<C>) {
     borderRadius: 0,
     backgroundColor: Colors.primary,
     paddingHorizontal: 16,
+    paddingVertical: 8,
     ...Layout.rowCenter,
   }
   const baseText: TextStyle = {
@@ -15,7 +16,7 @@ export default function <C>({ Colors, FontSize, Layout }: CommonParams<C>) {
   }
   const rounded: ViewStyle = {
     ...base,
-    borderRadius: 20,
+    borderRadius: 4,
   }
 
   return StyleSheet.create({

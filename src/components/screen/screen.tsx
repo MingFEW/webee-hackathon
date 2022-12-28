@@ -5,12 +5,12 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 
 import { useTheme } from '@/hooks'
 
-interface Props {
+interface ScreenProps {
   headerTitle: string
   children: React.ReactNode
 }
 
-const Screen: React.FC<Props> = (props) => {
+const Screen: React.FC<ScreenProps> = (props) => {
   const { Layout, Fonts, Colors } = useTheme()
   const navigation = useNavigation()
   const { children, headerTitle } = props

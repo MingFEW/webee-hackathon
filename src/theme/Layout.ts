@@ -5,20 +5,20 @@ import { ThemeVariables } from './theme'
 export default function ({}: ThemeVariables) {
   return StyleSheet.create({
     /* Column Layouts */
+    colCenter: {
+      alignItems: 'center',
+      flexDirection: 'column',
+      justifyContent: 'center',
+    },
     column: {
       flexDirection: 'column',
     },
     columnReverse: {
       flexDirection: 'column-reverse',
     },
-    colCenter: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
     colVCenter: {
-      flexDirection: 'column',
       alignItems: 'center',
+      flexDirection: 'column',
     },
     colHCenter: {
       flexDirection: 'column',
@@ -32,8 +32,8 @@ export default function ({}: ThemeVariables) {
       flexDirection: 'row-reverse',
     },
     rowCenter: {
-      flexDirection: 'row',
       alignItems: 'center',
+      flexDirection: 'row',
       justifyContent: 'center',
     },
     rowVCenter: {
@@ -41,8 +41,8 @@ export default function ({}: ThemeVariables) {
       justifyContent: 'center',
     },
     rowHCenter: {
-      flexDirection: 'row',
       alignItems: 'center',
+      flexDirection: 'row',
     },
     /* Default Layouts */
     center: {
@@ -54,6 +54,9 @@ export default function ({}: ThemeVariables) {
     },
     alignItemsStart: {
       alignItems: 'flex-start',
+    },
+    alignItemsEnd: {
+      alignItems: 'flex-end',
     },
     alignItemsStretch: {
       alignItems: 'stretch',

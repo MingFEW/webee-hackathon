@@ -1,9 +1,9 @@
-import { MachineField, FieldType } from '@/models/machine-field'
+import { MachineField, MachineFieldType } from '@/models/machine-field'
 import { MachineType } from '@/models/machine-type'
 import { generateUuid } from '@/utils/randomizer'
 import moment from 'moment'
 
-export const generateEmptyMachineField = (fieldType?: FieldType): MachineField => ({
+export const generateEmptyMachineField = (fieldType?: MachineFieldType): MachineField => ({
   id: generateUuid(),
   label: '',
   type: fieldType || 'text',

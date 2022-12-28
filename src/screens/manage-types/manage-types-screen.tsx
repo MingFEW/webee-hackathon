@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button } from 'react-native-paper'
-import { FlatList, View } from 'react-native'
+import { Text } from 'react-native-paper'
+import { FlatList, Pressable, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { useTheme } from '@/hooks'
@@ -9,7 +9,8 @@ import { machineTypesActions } from '@/store/machine-types/actions'
 import { MachineType } from '@/models/machine-type'
 
 import { Screen } from '@/components/screen'
-import { CardItem } from './components/card-item'
+import { FormCard } from './components/form-card'
+import { machinesActions } from '@/store/machines/actions'
 
 export const ManageTypesScreen: React.FC = () => {
   const { Common, Gutters } = useTheme()
@@ -21,11 +22,12 @@ export const ManageTypesScreen: React.FC = () => {
       <FlatList
         data={machineTypes}
         renderItem={({ item }: { item: MachineType }) => (
-          <CardItem
+          <FormCard
             data={item}
-            onSetTitle={() => {}}
-            onAddField={() => {}}
-            onRemove={() => dispatch(machineTypesActions.machineTypeRemoved(item.id))}
+            onRemove={() => {
+              dispatch(machineTypesActions.machineTypeRemoved(item.id))
+              dispatch(machinesActions.allMachinesOfSpecificTypeRemoved({ typeId: item.id }))
+            }}
           />
         )}
         keyExtractor={(item: MachineType) => item.id}
@@ -33,15 +35,14 @@ export const ManageTypesScreen: React.FC = () => {
       />
 
       <View style={[Gutters.regularHMargin]}>
-        <Button
-          style={Common.button.base}
-          labelStyle={Common.button.baseText}
+        <Pressable
+          style={Common.button.rounded}
           onPress={() => {
             dispatch(machineTypesActions.machineTypeAdded())
           }}
         >
-          + CREATE TYPE
-        </Button>
+          <Text style={Common.button.baseText}>+ CREATE TYPE</Text>
+        </Pressable>
       </View>
     </Screen>
   )

@@ -13,17 +13,19 @@ import {
 } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 import { machineTypesSlice } from './machine-types'
+import { machinesSlice } from './machines'
 import rootSaga from './sagas'
 import { RootState } from './types'
 
 const reducers = combineReducers<RootState>({
   machineTypes: machineTypesSlice.reducer,
+  machines: machinesSlice.reducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['machineTypes'],
+  whitelist: ['machineTypes', 'machines'],
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)

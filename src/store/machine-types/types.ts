@@ -1,4 +1,4 @@
-import { FieldType, MachineField } from '@/models/machine-field'
+import { MachineFieldType, MachineField } from '@/models/machine-field'
 import { MachineType } from '@/models/machine-type'
 
 export type MachineTypesState = {
@@ -14,9 +14,14 @@ export type MachineTypeNameUpdatedPayload = {
   newName: string
 }
 
+export type MachineTypeLabeledAsUpdatedPayload = {
+  typeId: string
+  labeledAs: string
+}
+
 export type MachineTypeFieldAddedPayload = {
   typeId: string
-  fieldType: FieldType
+  fieldType: MachineFieldType
 }
 
 export type MachineTypeFieldUpdatedPayload = {
