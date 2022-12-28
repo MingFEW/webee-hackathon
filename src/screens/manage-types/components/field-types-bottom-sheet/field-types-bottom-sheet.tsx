@@ -31,7 +31,7 @@ export const FieldTypesBottomSheet: React.FC<FieldTypesBottomSheetProps> = memo(
                 <List.Icon {...iconProps} icon={field.icon} color={Colors.primary} />
               )}
               onPress={() => {
-                onFieldSelect(field.label as MachineFieldType)
+                onFieldSelect(field.value as MachineFieldType)
                 onDismiss()
               }}
             />
