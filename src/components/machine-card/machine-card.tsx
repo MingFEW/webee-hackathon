@@ -29,7 +29,7 @@ const MachineCard: React.FC<Props> = memo((props) => {
   const cardLabel: string = useMemo(() => {
     const getFieldValue = machine.data.find((m) => m.fieldId === machineType.labeledAs)
       ?.value as string
-    return getFieldValue || `Unnamed machine`
+    return getFieldValue || `Unnamed machine type`
   }, [machine, machineType])
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
