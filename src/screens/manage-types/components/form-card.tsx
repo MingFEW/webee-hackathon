@@ -6,13 +6,13 @@ import { useDispatch } from 'react-redux'
 
 import { useTheme } from '@/hooks'
 import { machineTypesActions } from '@/store/machine-types/actions'
+import { machinesActions } from '@/store/machines/actions'
 import { MachineField } from '@/models/machine-field'
 import { MachineType } from '@/models/machine-type'
+import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter'
 
 import { FieldTypesBottomSheet } from './field-types-bottom-sheet'
 import { SetTitleBottomSheet } from './set-title-bottom-sheet'
-import { machinesActions } from '@/store/machines/actions'
-import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter'
 
 interface FormCardProps {
   data: MachineType

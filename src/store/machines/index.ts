@@ -4,6 +4,7 @@ import {
   AllMachineOfSpecificTypeRemovedPayload,
   AllMachineSpecificFieldRemovedPayload,
   MachineAddedPayload,
+  MachineFieldAddedPayload,
   MachineFieldUpdatedPayload,
   MachineRemovedPayload,
   MachinesState,
@@ -38,6 +39,16 @@ export const machinesSlice = createSlice({
         ...m,
         data: m.data.filter((f) => f.fieldId !== action.payload.fieldId),
       }))
+    },
+    machineFieldAdded(state, action: PayloadAction<MachineFieldAddedPayload>) {
+      const { machineId, field } = action.payload
+
+      const machine = state.machines.find((m) => m.id === machineId)
+      const fieldIndex = machine?.data.findIndex((f) => f.fieldId === field.fieldId) ?? -1
+
+      if (machine && fieldIndex < 0) {
+        machine.data.push(field)
+      }
     },
     machineFieldUpdated(state, action: PayloadAction<MachineFieldUpdatedPayload>) {
       const { machineId, fieldType, field } = action.payload
